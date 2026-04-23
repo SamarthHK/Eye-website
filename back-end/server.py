@@ -1,13 +1,12 @@
-import http.server
 import json
 import os
 import urllib.parse
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
 # Paths
-BASE_DIR     = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FRONTEND_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "front-end"))
-DATA_FILE    = os.path.join(BASE_DIR, "submissions.json")
+DATA_FILE = os.path.join(BASE_DIR, "submissions.json")
 
 print(f"Serving frontend from: {FRONTEND_DIR}")
 
@@ -29,23 +28,22 @@ def save_submissions(data):
 
 MIME_TYPES = {
     ".html": "text/html",
-    ".css":  "text/css",
-    ".js":   "application/javascript",
+    ".css": "text/css",
+    ".js": "application/javascript",
     ".json": "application/json",
-    ".png":  "image/png",
-    ".jpg":  "image/jpeg",
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
     ".jpeg": "image/jpeg",
-    ".gif":  "image/gif",
-    ".svg":  "image/svg+xml",
-    ".ico":  "image/x-icon",
+    ".gif": "image/gif",
+    ".svg": "image/svg+xml",
+    ".ico": "image/x-icon",
     ".woff": "font/woff",
-    ".woff2":"font/woff2",
-    ".ttf":  "font/ttf",
+    ".woff2": "font/woff2",
+    ".ttf": "font/ttf",
 }
 
 
 class Handler(BaseHTTPRequestHandler):
-
     def log_message(self, format, *args):
         print(f"  {self.command} {self.path}")
 
@@ -61,10 +59,16 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         parsed = urllib.parse.urlparse(self.path)
-        # Strip query string, decode percent-encoding
         path = urllib.parse.unquote(parsed.path)
 
-        # ── API ──────────────────────────────────────────────────────────
+        # Redirect root to the actual front page path so relative URLs work too
+        if path == "/" or path == "":
+            self.send_response(302)
+            self.send_header("Location", "/front-end/front-page/index.html")
+            self.end_headers()
+            return
+
+        # API
         if path == "/api/submissions":
             data = load_submissions()
             body = json.dumps(data).encode()
@@ -75,11 +79,6 @@ class Handler(BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(body)
             return
-
-        # ── Static files ─────────────────────────────────────────────────
-        # Root → front-page
-        if path == "/" or path == "":
-            path = "/front-page/index.html"
 
         # Strip leading /front-end/ if the browser sends it
         if path.startswith("/front-end/"):
@@ -95,7 +94,7 @@ class Handler(BaseHTTPRequestHandler):
             self.wfile.write(b"403 Forbidden")
             return
 
-        # Directory → try index.html inside it
+        # Directory -> try index.html inside it
         if os.path.isdir(file_path):
             file_path = os.path.join(file_path, "index.html")
 
@@ -106,7 +105,7 @@ class Handler(BaseHTTPRequestHandler):
             self.wfile.write(b"404 Not Found")
             return
 
-        ext  = os.path.splitext(file_path)[1].lower()
+        ext = os.path.splitext(file_path)[1].lower()
         mime = MIME_TYPES.get(ext, "application/octet-stream")
 
         with open(file_path, "rb") as f:
@@ -122,11 +121,12 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         if self.path == "/api/submit":
             length = int(self.headers.get("Content-Length", 0))
-            body   = self.rfile.read(length)
+            body = self.rfile.read(length)
             try:
                 payload = json.loads(body)
-                name    = str(payload.get("name",   "")).strip()
-                vision  = str(payload.get("vision", "")).strip()
+                name = str(payload.get("name", "")).strip()
+                vision = str(payload.get("vision", "")).strip()
+
                 if not name or not vision:
                     raise ValueError("Missing name or vision")
 
