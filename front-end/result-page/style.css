@@ -1,0 +1,126 @@
+body {
+    margin: 0;
+    font-family: Arial;
+    text-align: center;
+    background: #f5f7fa;
+    color: #222;
+}
+
+/* top header */
+.header {
+    background: white;
+    padding: 20px;
+    font-size: 22px;
+    font-weight: 600;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Box 1: vision score */
+.container {
+    width: 500px;
+    margin: 60px auto 30px auto;
+    padding: 30px;
+
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+h2 {
+    font-size: 28px;
+    margin: 0;
+}
+
+/* Box 2: comparison — sibling below .container */
+.compare-box {
+    width: 500px;
+    margin: 0 auto 60px auto;
+    padding: 20px;
+
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.compare-box h3 {
+    margin-top: 0;
+}
+
+/* image container */
+.image-compare {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+/* both images locked */
+.image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* base image */
+.base {
+    z-index: 1;
+}
+
+/*
+ * FIX for grey-blur flicker:
+ * Clip the WRAPPER (not the image itself).
+ * The image overflows the wrapper with extra padding so the blur
+ * filter always has real pixels to sample at the clip edge — no grey bleed.
+ */
+.blur-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;          /* starts at 50%, updated by JS */
+    height: 100%;
+    overflow: hidden;    /* this does the clipping */
+    z-index: 2;
+    border-radius: 0;
+}
+
+.blur-wrapper .image {
+    /* extend beyond wrapper so blur edge has pixels to sample */
+    width: calc(100% + 40px);  /* extra width on the right = blur radius buffer */
+    left: 0;
+}
+
+/* draggable vertical line */
+#handle {
+    position: absolute;
+    top: 0;
+    left: 50%;
+
+    width: 3px;
+    height: 100%;
+    background: white;
+    z-index: 3;
+
+    cursor: ew-resize;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+/* center dot */
+#handle::after {
+    content: "";
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+
+    background: white;
+    border: 2px solid #333;
+}

@@ -1,0 +1,180 @@
+body {
+    margin: 0;
+    font-family: Arial;
+    text-align: center;
+    background: #f5f7fa;
+    color: #222;
+}
+
+/* HEADER */
+.header {
+    background: white;
+    padding: 20px;
+    font-size: 22px;
+    font-weight: 600;
+    border-bottom: 1px solid #ddd;
+}
+
+/* MAIN BOX */
+.container {
+    width: 500px;
+    margin: 60px auto;
+    padding: 30px;
+
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+/* INSTRUCTION TEXT */
+.instruction {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* BUTTON */
+button {
+    margin-top: 25px;
+    padding: 12px 24px;
+    font-size: 16px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #222;
+    color: white;
+
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    transform: scale(1.08);
+}
+
+/* ========================= */
+/* EYE TEST ROWS */
+/* ========================= */
+
+.row {
+    display: grid;
+    grid-template-columns: 80px 1fr 80px;
+    align-items: center;
+
+    padding: 10px 15px;
+    margin: 6px 0;
+
+    border-radius: 10px;
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+/* hover effect */
+.row:hover {
+    background: #f0f0f0;
+    transform: scale(1.03);
+}
+
+/* selected row */
+.selected {
+    background: #e6f0ff;
+    font-weight: bold;
+}
+
+/* LEFT LABEL (feet) */
+.label {
+    font-size: 14px;
+    color: #777;
+}
+
+/* CENTER LETTERS */
+.letters {
+    font-size: 18px;
+}
+
+/* RIGHT METERS */
+.meters {
+    font-size: 14px;
+    color: #777;
+    text-align: right;
+}
+
+/* ========================= */
+/* RESULT PAGE IMAGE SLIDER */
+/* ========================= */
+
+.compare-box {
+    width: 100%;
+    margin-top: 50px;
+    padding: 20px;
+
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.image-compare {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+/* both images locked */
+.image {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* sharp layer */
+.base {
+    z-index: 1;
+}
+
+/* blur layer */
+.blur {
+    z-index: 2;
+    filter: blur(8px);
+    clip-path: inset(0 50% 0 0);
+}
+
+/* draggable vertical slider */
+#handle {
+    position: absolute;
+    top: 0;
+    left: 50%;
+
+    width: 3px;
+    height: 100%;
+
+    background: white;
+    z-index: 3;
+
+    cursor: ew-resize;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+/* handle dot */
+#handle::after {
+    content: "";
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 14px;
+    height: 14px;
+
+    border-radius: 50%;
+    background: white;
+    border: 2px solid #333;
+}

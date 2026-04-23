@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="header">
+    <h1>Your Result</h1>
+</div>
+
+<!-- Box 1: vision score text -->
+<div class="container">
+    <h2 id="output"></h2>
+</div>
+
+<!-- Box 2: image comparison — now a SIBLING below, not nested inside -->
+<div class="compare-box">
+    <h3>Original vs Blurry Comparison</h3>
+
+    <div class="image-compare" id="compare">
+
+        <!-- base (sharp image) -->
+        <img src="../images/cav.jpeg" class="image base">
+
+        <!-- blur wrapper: this gets clipped, the img inside overflows so blur has pixels to sample -->
+        <div class="blur-wrapper" id="blurWrapper">
+            <img src="../images/cav.jpeg" class="image blur" id="blurImg">
+        </div>
+
+        <!-- slider handle -->
+        <div class="slider-handle" id="handle"></div>
+
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
