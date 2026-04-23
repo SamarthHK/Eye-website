@@ -178,3 +178,62 @@ button:hover {
     background: white;
     border: 2px solid #333;
 }
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 30px;
+}
+
+.analysis-link {
+    font-size: 14px;
+    color: #888;
+    text-decoration: none;
+    border: 2px solid #ccc;
+    padding: 7px 16px;
+    border-radius: 10px;
+    transition: transform 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.analysis-link:hover {
+    transform: scale(1.06);
+    border-color: #aaa;
+    color: #444;
+}
+.header {
+    background: white;
+    padding: 20px 30px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+/* strip below header for nav buttons */
+.header-actions {
+    display: flex;
+    padding: 10px 24px;
+}
+
+.header-actions.right  { justify-content: flex-end; }
+.header-actions.left   { justify-content: flex-start; }
+
+.pill-btn {
+    font-size: 14px;
+    color: #888;
+    text-decoration: none;
+    border: 2px solid #ccc;
+    padding: 7px 16px;
+    border-radius: 10px;
+    font-family: 'DM Sans', Arial, sans-serif;
+    background: none;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s, color 0.2s;
+    display: inline-block;
+}
+
+.pill-btn:hover {
+    transform: scale(1.06);
+    border-color: #aaa;
+    color: #444;
+}

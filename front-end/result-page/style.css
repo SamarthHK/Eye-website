@@ -1,12 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500&display=swap');
+
 body {
     margin: 0;
-    font-family: Arial;
+    font-family: 'DM Sans', Arial, sans-serif;
     text-align: center;
     background: #f5f7fa;
     color: #222;
 }
 
-/* top header */
 .header {
     background: white;
     padding: 20px;
@@ -15,28 +16,71 @@ body {
     border-bottom: 1px solid #ddd;
 }
 
+.return-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    position: absolute;
+    left: 20px;
+    margin-top: 16px;
+    padding: 8px 16px;
+    background: none;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    color: #888;
+    font-size: 14px;
+    font-family: 'DM Sans', Arial, sans-serif;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.return-btn:hover {
+    transform: scale(1.08);
+    border-color: #aaa;
+    color: #555;
+}
+
+.return-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* All three boxes share this width */
+.container,
+.compare-box,
+.description-box {
+    width: 560px;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* Box 1: vision score */
 .container {
-    width: 500px;
-    margin: 60px auto 30px auto;
+    margin-top: 60px;
+    margin-bottom: 20px;
     padding: 30px;
-
     background: white;
     border-radius: 16px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.08);
 }
 
 h2 {
-    font-size: 28px;
+    font-family: 'Lora', serif;
+    font-size: 26px;
     margin: 0;
+    color: #1a1a1a;
 }
 
-/* Box 2: comparison — sibling below .container */
+/* Box 2: comparison */
 .compare-box {
-    width: 500px;
-    margin: 0 auto 60px auto;
+    margin-bottom: 20px;
     padding: 20px;
-
     background: white;
     border-radius: 16px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.08);
@@ -44,9 +88,14 @@ h2 {
 
 .compare-box h3 {
     margin-top: 0;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    color: #555;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
 }
 
-/* image container */
 .image-compare {
     position: relative;
     width: 100%;
@@ -55,72 +104,247 @@ h2 {
     border-radius: 12px;
 }
 
-/* both images locked */
 .image {
     position: absolute;
-    top: 0;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.blurred { z-index: 1; }
+
+.sharp-wrapper {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 2;
+    clip-path: inset(0 0 0 50%);
+}
+
+.sharp-wrapper .image {
     left: 0;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 
-/* base image */
-.base {
-    z-index: 1;
-}
-
-/*
- * FIX for grey-blur flicker:
- * Clip the WRAPPER (not the image itself).
- * The image overflows the wrapper with extra padding so the blur
- * filter always has real pixels to sample at the clip edge — no grey bleed.
- */
-.blur-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%;          /* starts at 50%, updated by JS */
-    height: 100%;
-    overflow: hidden;    /* this does the clipping */
-    z-index: 2;
-    border-radius: 0;
-}
-
-.blur-wrapper .image {
-    /* extend beyond wrapper so blur edge has pixels to sample */
-    width: calc(100% + 40px);  /* extra width on the right = blur radius buffer */
-    left: 0;
-}
-
-/* draggable vertical line */
 #handle {
     position: absolute;
-    top: 0;
-    left: 50%;
-
-    width: 3px;
-    height: 100%;
+    top: 0; left: 50%;
+    width: 3px; height: 100%;
     background: white;
     z-index: 3;
-
     cursor: ew-resize;
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    transform: translateX(-50%);
 }
 
-/* center dot */
 #handle::after {
     content: "";
     position: absolute;
-
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-
-    width: 14px;
-    height: 14px;
+    width: 14px; height: 14px;
     border-radius: 50%;
-
     background: white;
     border: 2px solid #333;
+}
+
+/* Box 3: description — white outer border, dark inner fill */
+.description-box {
+    margin-bottom: 60px;
+    padding: 6px;                          /* white border thickness */
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.description-inner {
+    background: #e8eaed;                   /* slightly darker grey fill */
+    border-radius: 11px;                   /* slightly less than outer */
+    padding: 24px 28px;
+    text-align: left;
+}
+
+.desc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.desc-title {
+    font-family: 'Lora', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.vision-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.tag-excellent  { background: #d4f7e0; color: #1a7a40; }
+.tag-good       { background: #d9f0ff; color: #1a5a8a; }
+.tag-mild       { background: #fff4cc; color: #7a5a00; }
+.tag-moderate   { background: #ffe4b2; color: #8a4000; }
+.tag-poor       { background: #ffd6d6; color: #8a0000; }
+.tag-severe     { background: #f0d0ff; color: #5a007a; }
+
+#visionDesc {
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    line-height: 1.8;
+    color: #444;
+    margin: 0;
+    font-style: italic;
+}
+/* Box 4: submit */
+.submit-box {
+    width: 560px;
+    box-sizing: border-box;
+    margin: 0 auto 60px auto;
+    padding: 6px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.submit-hint {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #777;
+    margin: 0 0 16px 0;
+}
+
+.submit-row {
+    display: flex;
+    gap: 10px;
+}
+
+.submit-row input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.submit-row input:focus {
+    border-color: #aaa;
+}
+
+.submit-row button {
+    padding: 10px 22px;
+    background: #222;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.submit-row button:hover {
+    background: #444;
+    transform: scale(1.04);
+}
+
+.already-submitted {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    color: #aaa;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Greyed out state */
+.submit-box.greyed .description-inner {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Modal */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal {
+    background: #f0f0f0;
+    border-radius: 16px;
+    padding: 36px 40px;
+    box-shadow: 0 16px 50px rgba(0,0,0,0.2);
+    text-align: center;
+    max-width: 380px;
+    width: 90%;
+}
+
+.modal-text {
+    font-family: 'Lora', serif;
+    font-size: 17px;
+    color: #222;
+    line-height: 1.7;
+    margin: 0 0 28px 0;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.modal-yes {
+    padding: 10px 28px;
+    background: #2a9d5c;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.modal-yes:hover {
+    background: #238a4f;
+    transform: scale(1.05);
+}
+
+.modal-no {
+    padding: 10px 28px;
+    background: #e63946;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.modal-no:hover {
+    background: #c1121f;
+    transform: scale(1.05);
 }

@@ -4,39 +4,75 @@
     <title>Result</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div class="header">
     <h1>Your Result</h1>
 </div>
 
-<!-- Box 1: vision score text -->
+<!-- Return button: far left, just below header -->
+<button class="return-btn" onclick="window.location.href='./front-page/index.html'">
+    <svg viewBox="0 0 24 24">
+        <path d="M9 14 L4 9 L9 4" />
+        <path d="M4 9 C4 9 8 9 12 9 C16 9 20 12 20 16 C20 20 16 20 12 20" />
+    </svg>
+    Return
+</button>
+
+<!-- Box 1: vision score -->
 <div class="container">
     <h2 id="output"></h2>
 </div>
 
-<!-- Box 2: image comparison — now a SIBLING below, not nested inside -->
+<!-- Box 2: image comparison -->
 <div class="compare-box">
     <h3>Original vs Blurry Comparison</h3>
-
     <div class="image-compare" id="compare">
-
-        <!-- base (sharp image) -->
-        <img src="../images/cav.jpeg" class="image base">
-
-        <!-- blur wrapper: this gets clipped, the img inside overflows so blur has pixels to sample -->
-        <div class="blur-wrapper" id="blurWrapper">
-            <img src="../images/cav.jpeg" class="image blur" id="blurImg">
+        <img src="../images/cav.jpeg" class="image blurred" id="blurImg">
+        <div class="sharp-wrapper" id="sharpWrapper">
+            <img src="../images/cav.jpeg" class="image">
         </div>
-
-        <!-- slider handle -->
         <div class="slider-handle" id="handle"></div>
+    </div>
+</div>
 
+<!-- Box 3: description -->
+<!-- Box 3: description -->
+<div class="description-box">
+    <div class="description-inner">
+        <div class="desc-header">
+            <span class="desc-title">About Your Vision</span>
+            <span class="vision-tag" id="visionTag"></span>
+        </div>
+        <p id="visionDesc"></p>
     </div>
 </div>
 
 <script src="script.js"></script>
+<!-- Box 4: submit vision -->
+<div class="submit-box" id="submitBox">
+    <div class="description-inner">
+        <div class="desc-header">
+            <span class="desc-title">Submit Your Vision</span>
+        </div>
+        <p class="submit-hint" id="submitHint">Enter your name to record your result to the database.</p>
+        <div class="submit-row" id="submitRow">
+            <input type="text" id="nameInput" placeholder="Your name..." maxlength="40" />
+            <button id="submitBtn">Submit</button>
+        </div>
+        <p class="already-submitted" id="alreadyMsg" style="display:none;">You have already submitted your vision result.</p>
+    </div>
+</div>
 
+<!-- Confirmation modal -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+        <p class="modal-text" id="modalText"></p>
+        <div class="modal-buttons">
+            <button class="modal-yes" id="modalYes">Yes, submit</button>
+            <button class="modal-no"  id="modalNo">No, cancel</button>
+        </div>
+    </div>
+</div>
 </body>
 </html>
