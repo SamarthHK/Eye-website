@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Result</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/front-end/result-page/style.css">
 </head>
 <body>
 
@@ -11,7 +12,7 @@
 </div>
 
 <!-- Return button: far left, just below header -->
-<button class="return-btn" onclick="window.location.href='./front-page/index.html'">
+<button class="return-btn" onclick="window.location.href='/front-end/front-page/index.html'">
     <svg viewBox="0 0 24 24">
         <path d="M9 14 L4 9 L9 4" />
         <path d="M4 9 C4 9 8 9 12 9 C16 9 20 12 20 16 C20 20 16 20 12 20" />
@@ -37,7 +38,6 @@
 </div>
 
 <!-- Box 3: description -->
-<!-- Box 3: description -->
 <div class="description-box">
     <div class="description-inner">
         <div class="desc-header">
@@ -48,7 +48,6 @@
     </div>
 </div>
 
-<script src="script.js"></script>
 <!-- Box 4: submit vision -->
 <div class="submit-box" id="submitBox">
     <div class="description-inner">
@@ -70,9 +69,11 @@
         <p class="modal-text" id="modalText"></p>
         <div class="modal-buttons">
             <button class="modal-yes" id="modalYes">Yes, submit</button>
-            <button class="modal-no"  id="modalNo">No, cancel</button>
+            <button class="modal-no" id="modalNo">No, cancel</button>
         </div>
     </div>
 </div>
+
+<script src="/front-end/result-page/script.js"></script>
 </body>
 </html>
